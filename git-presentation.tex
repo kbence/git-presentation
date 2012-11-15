@@ -1,14 +1,103 @@
-\documentclass[display]{beamer}
-\usepackage{beamerthemesidebar}
+\documentclass[display,t]{beamer}
+
+\usetheme{Szeged}
+\usefonttheme[onlylarge]{structurebold}
+\setbeamerfont*{frametitle}{size=\normalsize,series=\bfseries}
+\setbeamertemplate{navigation symbols}{}
+
 \usepackage[hungarian]{babel}
 \usepackage[utf8]{inputenc}
+\usepackage{times}
 \usepackage[T1]{fontenc}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{tikz}
 
-\title{Bevezetés a Git használatába}
+\title{Git init}
+\subtitle{Bevezetés a Git használatába}
+\author{Kiglics Bence}
 
 \begin{document}
 
+
 \frame{\titlepage}
+
+\begin{frame}{Tartalomjegyzék}
+    \tableofcontents
+\end{frame}
+
+\section{Bevezetés}
+\subsection{A verziókövető rendszerek rövid története}
+\subsubsection{Korai verziókövetők}
+
+\begin{frame}{Korai verziókövetők}
+    \pause
+    \begin{block}{SCCS (Source Code Control System)}
+        \begin{itemize}
+            \pause \item UNIX fejlesztés
+            \pause \item Első tapasztalatok
+        \end{itemize}
+    \end{block}
+    \pause
+    \begin{block}{RCS (Revision Control System)}
+        \begin{itemize}
+            \pause \item Csak egyedi fájlokon dolgozik
+            \pause \item Diff/patch
+            \pause \item Branching
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\subsubsection{Központosított rendszerek}
+
+\begin{frame}{Központosított rendszerek}
+    \pause
+    \begin{block}{CVS (Concurrent Versioning System)}
+        \begin{itemize}
+            \pause \item RCS utódja
+            \pause \item Cliens/szerver
+        \end{itemize}
+    \end{block}
+    \pause
+    \begin{block}{SVN (Subversion)}
+        \begin{itemize}
+            \pause \item CVS lecserélésére
+            \pause \item HTTP támogatása
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\subsubsection{Elosztott rendszerek}
+
+\begin{frame}{Elosztott rendszerek}
+    \pause
+    \begin{block}{BZR (Bazaar)}
+        \begin{itemize}
+            \pause \item A Canonical Inc. fejlesztése
+            \pause \item Launchpad
+        \end{itemize}
+    \end{block}
+    \pause
+    \begin{block}{HG (Mercurial)}
+        \begin{itemize}
+            \pause \item Linux kernel
+            \pause \item Binary diff
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Elosztott rendszerek}
+    \pause
+    \begin{block}{Git}
+        \begin{itemize}
+            \pause \item Linus torvalds
+            \pause \item A BitKeeper fizetőssé vált
+            \pause \item Diff helyett teljes fájlok tárolása
+            \pause \item Kis projektekre és hatalmas kódbázisok követésére egyaránt alkalmas
+        \end{itemize}
+    \end{block}
+\end{frame}
+
 
 \end{document}
 
