@@ -4,7 +4,7 @@ all: git-presentation
 
 .PHONY: clean
 clean:
-	rm -f *.aux *.log *.nav *.out *.snm *.toc *.swp *.pdf
+	rm -f *.aux *.log *.nav *.out *.snm *.toc *.swp *.pdf *.vrb
 
 .PHONY: git-presentation
 git-presentation: git-presentation.pdf
