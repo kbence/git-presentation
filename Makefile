@@ -11,7 +11,7 @@ git-presentation: git-presentation.pdf
 
 .PHONY: show
 show: git-presentation
-	@which evince2 || (echo "evince must be installed to show presentation"; exit 1)
+	@which evince || (echo "evince must be installed to show presentation"; exit 1)
 	evince -p 1 -s git-presentation.pdf
 
 %.pdf: %.tex
