@@ -12,12 +12,20 @@
 \usepackage{listings}
 \usepackage{graphicx}
 \usepackage{tikz}
+\usetikzlibrary{positioning,shapes,shadows,arrows}
 
 \title{Git init}
 \subtitle{Bevezetés a Git használatába}
 \author{Kiglics Bence}
 
 \begin{document}
+
+
+\tikzstyle{commit} = [rectangle, draw = black, fill = white, rounded corners,
+                      inner sep = 4pt, outer sep = 1pt, text centered,
+                      text width = 0.8cm, font=\small]
+\tikzstyle{current commit} = [commit, fill = yellow]
+\tikzstyle{helper node} = [text width = 0.8cm, inner sep = 4pt, outer sep = 1pt]
 
 
 \frame{\titlepage}
@@ -97,6 +105,46 @@
         \end{itemize}
     \end{block}
 \end{frame}
+
+\section{A verziókövetés alapjai}
+
+\begin{frame}
+    Egy repository felépítése \pause
+    
+    \begin{center}
+        \begin{tikzpicture}[->, node distance=0.4cm]
+            \node (C0) [commit] {C0};
+            \pause
+            
+            \node (C1) [commit, right=of C0] {C1};
+            \draw (C0) -> (C1);
+            \pause
+            
+            \node (C2) [commit, right=of C1] {C2};
+            \draw (C1) -> (C2);
+            \pause
+            
+            \node (C1to3) [helper node, below=of C1] {};
+            \node (C3) [commit, right=of C1to3] {C3};
+            \draw (C1) -> (C3);
+            \pause
+            
+            \node (C4) [commit, right=of C2] {C4};
+            \draw (C2) -> (C4);
+            \pause
+            
+            \node (C5) [commit, right=of C3] {C5};
+            \draw (C3) -> (C5);
+            \pause
+            
+            \node (C6) [commit, right=of C4] {C6};
+            \draw (C4) -> (C6);
+            \draw (C5) -> (C6);
+        \end{tikzpicture}
+    \end{center}
+\end{frame}
+
+\subsection{Lokális verziókövetés Git segítségével}
 
 
 \end{document}
