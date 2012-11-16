@@ -12,6 +12,7 @@
 \usepackage{listings}
 \usepackage{graphicx}
 \usepackage{tikz}
+
 \usetikzlibrary{positioning,shapes,shadows,arrows}
 
 \title{Git init}
@@ -24,8 +25,15 @@
 \tikzstyle{commit} = [rectangle, draw = black, fill = white, rounded corners,
                       inner sep = 4pt, outer sep = 1pt, text centered,
                       text width = 0.8cm, font=\small]
-\tikzstyle{current commit} = [commit, fill = yellow]
 \tikzstyle{helper node} = [text width = 0.8cm, inner sep = 4pt, outer sep = 1pt]
+\tikzstyle{line} = [->, thick, > = stealth]
+
+\tikzstyle{big commit} = [rectangle, draw = black, fill = white, rounded corners,
+                          inner sep = 4pt, outer sep = 1pt, text centered,
+                          text width=1.5cm, font=\small]
+\tikzstyle{big pointer}     = [big commit, fill = lightgray]
+\tikzstyle{big head}        = [big commit, fill = darkgray, text = white]
+\tikzstyle{big helper node} = [text width = 1.5cm, inner sep = 4pt, outer sep = 1pt]
 
 
 \frame{\titlepage}
@@ -98,7 +106,7 @@
     \pause
     \begin{block}{Git}
         \begin{itemize}
-            \pause \item Linus torvalds
+            \pause \item Linus Torvalds
             \pause \item A BitKeeper fizetőssé vált
             \pause \item Diff helyett teljes fájlok tárolása
             \pause \item Kis projektekre és hatalmas kódbázisok követésére egyaránt alkalmas
@@ -106,10 +114,11 @@
     \end{block}
 \end{frame}
 
-\section{A verziókövetés alapjai}
+\subsection{A verziókövetés alapjai}
+\subsubsection{Egy repository működése}
 
-\begin{frame}
-    Egy repository felépítése \pause
+\begin{frame}{Egy repository működése}
+    \pause
     
     \begin{center}
         \begin{tikzpicture}[->, node distance=0.4cm]
@@ -117,34 +126,147 @@
             \pause
             
             \node (C1) [commit, right=of C0] {C1};
-            \draw (C0) -> (C1);
+            \draw (C0) -> (C1) [line];
             \pause
             
             \node (C2) [commit, right=of C1] {C2};
-            \draw (C1) -> (C2);
+            \draw (C1) -> (C2) [line];
             \pause
             
             \node (C1to3) [helper node, below=of C1] {};
             \node (C3) [commit, right=of C1to3] {C3};
-            \draw (C1) -> (C3);
+            \draw (C1) -> (C3) [line];
             \pause
             
             \node (C4) [commit, right=of C2] {C4};
-            \draw (C2) -> (C4);
+            \draw (C2) -> (C4) [line];
             \pause
             
             \node (C5) [commit, right=of C3] {C5};
-            \draw (C3) -> (C5);
+            \draw (C3) -> (C5) [line];
             \pause
             
             \node (C6) [commit, right=of C4] {C6};
-            \draw (C4) -> (C6);
-            \draw (C5) -> (C6);
+            \draw (C4) -> (C6) [line];
+            \draw (C5) -> (C6) [line];
         \end{tikzpicture}
     \end{center}
 \end{frame}
 
-\subsection{Lokális verziókövetés Git segítségével}
+\section{Verziókezelés Git segítségével}
+\subsection{A Git felépítése}
+
+\begin{frame}{Git commitok és branchek}
+    \begin{center}
+        \begin{tikzpicture}[->, node distance=0.5cm]
+            \node (C0) [big commit] {0000000};
+            
+            \node (C1) [big commit, right=of C0] {e95e10e};
+            \draw (C1) -- (C0) [line];
+            
+            \node (C2) [big commit, right=of C1] {eea4ec7};
+            \draw (C2) -- (C1) [line];
+            
+            \node (C3) [big commit, right=of C2] {421409f};
+            \draw (C3) -- (C2) [line];
+            
+            \node (C1to4) [big helper node, below=of C1] {};
+            \node (C4) [big commit, right=of C1to4] {8eddc0a};
+            \draw (C4) -| (C1) [line];
+            \pause
+            
+            \node (master) [big pointer, above=of C3] {master};
+            \draw (master) -- (C3) [line];
+            \pause
+            
+            \node (branch) [big pointer, below=of C4] {branch};
+            \draw (branch) -- (C4) [line];
+            \pause
+            
+            \node (HEAD) [big head, above=of master] {HEAD};
+            \draw (HEAD) -- (master) [line];
+        \end{tikzpicture}
+    \end{center}
+\end{frame}
+
+\subsection{Git utasítások}
+
+\begin{frame}[fragile]{Git repository inicializálása}
+    Inicializálás\small
+\begin{verbatim}
+~/myproject$ git init
+Initialized empty Git repository in ~/myproject/.git/
+\end{verbatim}
+    \normalsize
+    
+    "Bare" repository inicializálás\small
+\begin{verbatim}
+~/myproject$ git init --bare
+\end{verbatim}
+    \normalsize
+\end{frame}
+
+\begin{frame}[fragile]{Git fájl állapotok}
+    \begin{center}
+        \begin{tikzpicture}[
+                >=triangle 45,
+                head/.style={
+                    rectangle,
+                    draw = black,
+                    text width = 2cm,
+                    text centered,
+                    rounded corners
+                }
+            ]
+            \node (Unstaged)  [head, fill=red] {Unstaged};
+            \node (Staged)    [head, fill=yellow, right=of Unstaged] {Staged};
+            \node (Committed) [head, fill=green, right=of Staged] {Committed};
+            
+            \draw (Unstaged) -- (Staged) [<->];
+            \draw (Staged) -- (Committed) [->];
+        \end{tikzpicture}
+    \end{center}
+    
+    Unstaged fájlok staged állapotba helyezése:
+\begin{verbatim}
+~/myproject$ git init
+\end{verbatim}
+
+    Staged fájlok unstaged állapotba helyezése:
+\begin{verbatim}
+~/myproject$ git rm --cached file.txt
+rm 'file.txt'
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Git állapot vizsgálata}
+    Beszédes kimenet
+    \tiny
+\begin{verbatim}
+~/myproject$ git status
+# On branch master
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   Makefile
+#	modified:   git-presentation.tex
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Git commit}
+    Csak staged fájlok commitja:
+\begin{verbatim}
+~/myproject$ git commit -m "message"
+\end{verbatim}
+    
+    Repóban szereplő fájlok commitja:
+\begin{verbatim}
+~/myproject$ git commit -a -m "message"
+\end{verbatim}
+\end{frame}
 
 
 \end{document}
