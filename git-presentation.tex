@@ -189,9 +189,10 @@
     \end{center}
 \end{frame}
 
-\subsection{Git utasítások}
+\subsection{Git lokális utasítások}
 
 \begin{frame}[fragile]{Git repository inicializálása}
+    \pause
     Inicializálás\small
 \begin{verbatim}
 ~/myproject$ git init
@@ -199,6 +200,7 @@ Initialized empty Git repository in ~/myproject/.git/
 \end{verbatim}
     \normalsize
     
+    \pause
     "Bare" repository inicializálás\small
 \begin{verbatim}
 ~/myproject$ git init --bare
@@ -207,6 +209,7 @@ Initialized empty Git repository in ~/myproject/.git/
 \end{frame}
 
 \begin{frame}[fragile]{Git fájl állapotok}
+    \pause
     \begin{center}
         \begin{tikzpicture}[
                 >=triangle 45,
@@ -219,19 +222,22 @@ Initialized empty Git repository in ~/myproject/.git/
                 }
             ]
             \node (Unstaged)  [head, fill=red] {Unstaged};
-            \node (Staged)    [head, fill=yellow, right=of Unstaged] {Staged};
-            \node (Committed) [head, fill=green, right=of Staged] {Committed};
             
+            \node (Staged)    [head, fill=yellow, right=of Unstaged] {Staged};
             \draw (Unstaged) -- (Staged) [<->];
+            
+            \node (Committed) [head, fill=green, right=of Staged] {Committed};
             \draw (Staged) -- (Committed) [->];
         \end{tikzpicture}
     \end{center}
     
+    \pause
     Unstaged fájlok staged állapotba helyezése:
 \begin{verbatim}
 ~/myproject$ git init
 \end{verbatim}
 
+    \pause
     Staged fájlok unstaged állapotba helyezése:
 \begin{verbatim}
 ~/myproject$ git rm --cached file.txt
@@ -254,20 +260,125 @@ rm 'file.txt'
 #
 no changes added to commit (use "git add" and/or "git commit -a")
 \end{verbatim}
+
+    Napló lekérdezése:
+\begin{verbatim}
+~/myproject$ git log [--oneline] [--graph]
+\end{verbatim}
+
+    Változások lekérdezése:
+\begin{verbatim}
+~/myproject$ git diff
+\end{verbatim}
 \end{frame}
 
 \begin{frame}[fragile]{Git commit}
+    \pause
     Csak staged fájlok commitja:
-\begin{verbatim}
+\small\begin{verbatim}
 ~/myproject$ git commit -m "message"
-\end{verbatim}
+[master 08e617f] message
+ 1 file changed, 135 insertions(+), 13 deletions(-)
+\end{verbatim}\normalsize
+    \pause
     
-    Repóban szereplő fájlok commitja:
-\begin{verbatim}
+    Repóban szereplő módosult fájlok commitja:
+\small\begin{verbatim}
 ~/myproject$ git commit -a -m "message"
-\end{verbatim}
+\end{verbatim}\normalsize
+    \pause
+
+    Fájlok revertálása:
+\small\begin{verbatim}
+~/myproject$ git checkout HEAD file.txt
+\end{verbatim}\normalsize
 \end{frame}
 
+\begin{frame}[fragile]{Git branchek}
+    \pause
+    Branch létrehozása:
+\small\begin{verbatim}
+~/myproject$ git branch new_branch
+\end{verbatim}\normalsize
+
+    \pause
+    Branchre váltás:
+\small\begin{verbatim}
+~/myproject$ git checkout new_branch
+\end{verbatim}\normalsize
+
+    \pause
+    Egy utasításban:
+\small\begin{verbatim}
+~/myproject$ git checkout -b new_branch
+\end{verbatim}\normalsize
+\end{frame}
+
+\begin{frame}[fragile]{Git branchek}
+    \pause
+    Branch mergelése:
+\small\begin{verbatim}
+~/myproject$ git merge mergable_branch
+\end{verbatim}\normalsize
+
+    \pause
+    Javasolt eszközök:
+    \begin{itemize}
+        \item meld (*nix)
+        \item kdiff3 (*nix, Windows)
+        \item opendiff (Mac)
+    \end{itemize}
+\end{frame}
+
+\subsection{Verziókezelés a felhőben}
+
+\begin{frame}[fragile]{Távoli utasítások}
+    \pause
+    Repó klónozása:
+\small\begin{verbatim}
+~/myproject$ git clone <repository>
+\end{verbatim}\normalsize
+
+    \pause
+    Távoli változások begyűjtése:
+\small\begin{verbatim}
+~/myproject$ git fetch [reponame]
+\end{verbatim}\normalsize
+
+    \pause
+    Begyűjtés és merge egy lépésben:
+\small\begin{verbatim}
+~/myproject$ git pull [reponame]
+\end{verbatim}\normalsize
+
+    \pause
+    Lokális commitok szinkronizálása a szerverre:
+\small\begin{verbatim}
+~/myproject$ git push [reponame]
+\end{verbatim}\normalsize
+\end{frame}
+
+\begin{frame}[fragile]{Távoli utasítások}
+    \pause
+    Új távoli repó hozzáadása és törlése:
+\small\begin{verbatim}
+~/myproject$ git remote add <reponame> <location>
+~/myproject$ git remote rm <reponame>
+\end{verbatim}\normalsize
+\end{frame}
+
+\begin{frame}{Git eszközök}
+    \begin{itemize}
+        \item gitk (*nix, Mac)
+        \item TortoiseGit (Windows)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \begin{center}
+        \includegraphics[width=6cm]{approved_by_csibi.png}
+    \end{center}
+\end{frame}
 
 \end{document}
 
