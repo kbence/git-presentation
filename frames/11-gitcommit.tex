@@ -1,0 +1,23 @@
+
+\begin{frame}[fragile]{Git commit}
+    \pause
+    Csak staged fájlok commitja:
+\small\begin{verbatim}
+~/myproject$ git commit -m "message"
+[master 08e617f] message
+ 1 file changed, 135 insertions(+), 13 deletions(-)
+\end{verbatim}\normalsize
+    \pause
+    
+    Repóban szereplő módosult fájlok commitja:
+\small\begin{verbatim}
+~/myproject$ git commit -a -m "message"
+\end{verbatim}\normalsize
+    \pause
+
+    Fájlok revertálása:
+\small\begin{verbatim}
+~/myproject$ git checkout HEAD file.txt
+\end{verbatim}\normalsize
+\end{frame}
+

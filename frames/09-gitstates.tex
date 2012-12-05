@@ -1,0 +1,38 @@
+
+\begin{frame}[fragile]{Git fájl állapotok}
+    \pause
+    \begin{center}
+        \begin{tikzpicture}[
+                >=triangle 45,
+                head/.style={
+                    rectangle,
+                    draw = black,
+                    text width = 2cm,
+                    text centered,
+                    rounded corners
+                }
+            ]
+            \node (Unstaged)  [head, fill=red] {Unstaged};
+            
+            \node (Staged)    [head, fill=yellow, right=of Unstaged] {Staged};
+            \draw (Unstaged) -- (Staged) [<->];
+            
+            \node (Committed) [head, fill=green, right=of Staged] {Committed};
+            \draw (Staged) -- (Committed) [->];
+        \end{tikzpicture}
+    \end{center}
+    
+    \pause
+    Unstaged fájlok staged állapotba helyezése:
+\begin{verbatim}
+~/myproject$ git add file.txt
+\end{verbatim}
+
+    \pause
+    Staged fájlok unstaged állapotba helyezése:
+\begin{verbatim}
+~/myproject$ git rm --cached file.txt
+rm 'file.txt'
+\end{verbatim}
+\end{frame}
+

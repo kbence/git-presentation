@@ -1,0 +1,39 @@
+
+\subsubsection{Egy repository működése}
+
+\begin{frame}{Egy repository működése}
+    \pause
+    
+    \begin{center}
+        \begin{tikzpicture}[->, node distance=0.4cm]
+            \node (C0) [commit] {C0};
+            \pause
+            
+            \node (C1) [commit, right=of C0] {C1};
+            \draw (C0) -> (C1) [line];
+            \pause
+            
+            \node (C2) [commit, right=of C1] {C2};
+            \draw (C1) -> (C2) [line];
+            \pause
+            
+            \node (C1to3) [helper node, below=of C1] {};
+            \node (C3) [commit, right=of C1to3] {C3};
+            \draw (C1) -> (C3) [line];
+            \pause
+            
+            \node (C4) [commit, right=of C2] {C4};
+            \draw (C2) -> (C4) [line];
+            \pause
+            
+            \node (C5) [commit, right=of C3] {C5};
+            \draw (C3) -> (C5) [line];
+            \pause
+            
+            \node (C6) [commit, right=of C4] {C6};
+            \draw (C4) -> (C6) [line];
+            \draw (C5) -> (C6) [line];
+        \end{tikzpicture}
+    \end{center}
+\end{frame}
+

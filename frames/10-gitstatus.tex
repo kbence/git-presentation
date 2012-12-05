@@ -1,0 +1,28 @@
+
+\begin{frame}[fragile]{Git állapot vizsgálata}
+    Beszédes kimenet
+    \tiny
+\begin{verbatim}
+~/myproject$ git status
+# On branch master
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   Makefile
+#	modified:   git-presentation.tex
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+\end{verbatim}
+
+    Napló lekérdezése:
+\begin{verbatim}
+~/myproject$ git log [--oneline] [--graph]
+\end{verbatim}
+
+    Változások lekérdezése:
+\begin{verbatim}
+~/myproject$ git diff
+\end{verbatim}
+\end{frame}
+
