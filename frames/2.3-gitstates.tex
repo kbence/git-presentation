@@ -2,24 +2,7 @@
 \begin{frame}[fragile]{Git fájl állapotok}
     \pause
     \begin{center}
-        \begin{tikzpicture}[
-                >=triangle 45,
-                head/.style={
-                    rectangle,
-                    draw = black,
-                    text width = 2cm,
-                    text centered,
-                    rounded corners
-                }
-            ]
-            \node (Unstaged)  [head, fill=red] {Unstaged};
-            
-            \node (Staged)    [head, fill=yellow, right=of Unstaged] {Staged};
-            \draw (Unstaged) -- (Staged) [<->];
-            
-            \node (Committed) [head, fill=green, right=of Staged] {Committed};
-            \draw (Staged) -- (Committed) [->];
-        \end{tikzpicture}
+        \includegraphics[width=3cm]{frames/diagrams/three-states.png}
     \end{center}
     
     \pause

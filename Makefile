@@ -1,4 +1,6 @@
 
+FRAMES=$(shell find frames -name '*.tex')
+
 .PHONY: all
 all: git-presentation
 
@@ -18,6 +20,8 @@ show: git-presentation
 view: git-presentation
 	@which gnome-open || (echo "gnome-open must be installed to show presentation"; exit 1)
 	gnome-open git-presentation.pdf
+
+git-presentation.pdf: $(FRAMES)
 
 %.pdf: %.tex
 	texi2dvi --pdf -o $@ $<
