@@ -1,0 +1,27 @@
+
+\begin{frame}[fragile]{Stash}
+    \pause
+    "Dirty" állapot stashbe helyezése
+\small\begin{verbatim}
+~/myproject$ git stash
+\end{verbatim}\normalsize
+
+    \pause
+    Stashben lévő állapot kiemelése
+\small\begin{verbatim}
+~/myproject$ git (pop|apply)
+\end{verbatim}\normalsize
+
+    \pause
+    Stash állapot törlése
+\small\begin{verbatim}
+~/myproject$ git stash drop <stashid>
+\end{verbatim}\normalsize
+
+    \pause
+    Stashből új branch kiemelése
+\small\begin{verbatim}
+~/myproject$ git stash branch <branch_név>
+\end{verbatim}\normalsize
+\end{frame}
+
